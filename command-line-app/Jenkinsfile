@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     deleteDir()
-                    git url: "${GIT_REPO}", branch: "${BRANCH_NAME}", credentialsId: 'Credential ID'
+                    git url: "${GIT_REPO}", branch: "${BRANCH_NAME}", credentialsId: 'GitHub-account'
                 }
             }
         }
