@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    // Read the below from configmap within the repo
+    environment {
+        GIT_HOST = 'github.com'
+        GIT_REPO = 'https://github.com/EngSamirah/simple-python-pyinstaller-app.git'
+        BRANCH_NAME = 'master'
+        SERVICE = 'todo-service'
+    }
+    stages {
+        // Checkout the right branch
+        stage('Checkout') {
+            steps {
+                script {
+                    deleteDir()
+                    git url: "${GIT_REPO}", branch: "${BRANCH_NAME}", credentialsId: 'Credential ID'
+                }
+            }
+        }
+        // Build the image
+        stage('Build') {
+            steps {
+                script {
+                    SHORT_COMMIT = GIT_COMMIT.take(8)
+                }
+                sh "docker build . -t ${SERVICE}:${SHORT_COMMIT}"
+            }
+        }
+    }
+}
