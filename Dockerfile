@@ -1,6 +1,5 @@
-# Use Python 3.11 as base image
-FROM python:3.11-slim
-
+# Use Python 3.11 as base image from python-projects dir
+FROM python:3.11-slim AS bulder 
 # Set the working directory in the container
 WORKDIR /app
 
